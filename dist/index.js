@@ -20,7 +20,7 @@ jwplayer('player').setup({
   var cachedJSON = localStorage.getItem(mp4Url);
   if (cachedJSON) {
     console.log('Using cached clarifai response.');
-    return handleTagData(JSON.parse(cachedJSON), e.item);
+    e.item.tagData = JSON.parse(cachedJSON);
   }
   fetch(clarifaiTagUrl)
     .then(response => {
@@ -39,16 +39,13 @@ jwplayer('player').setup({
       localStorage.setItem(mp4Url, JSON.stringify(tagData))
       return tagData;
     })
-    .then(tagData => handleTagData(tagData, e.item))
+    .then(tagData => e.item.tagData = tagData)
     .catch(err => console.error(err))
   }).on('time', function(e) {
     var item = this.getPlaylistItem();
     tagData = item.tagData;
     if (!tagData) return;
     var classes = tagData.classes[e.position|0];
-    var probs = tagData.probs[e.position|0];
+    // var probs = tagData.probs[e.position|0];
     document.querySelector('#clarifai').innerHTML = classes.join('<br>');
   });
-function handleTagData(tagData, item) {
-  item.tagData = tagData;
-}
