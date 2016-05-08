@@ -14,13 +14,13 @@ jwplayer('player').setup({
     .reduce((res, item) => (item.type === 'mp4' && !/\.m4a$/.test(item.file)) ? item:res, {})
     .file.replace(/^\/\//, 'http://');
 
-  var clarifaiToken = 'B7NMoX8ES4kTSzNZGl0HWfVn9fyrmH';//'fCYosSIAkbjD69Hbe1OACkfJQiqflj'//'AzGuIiXTPe44xmEn889F41Zyfqvoby'//;
+  var clarifaiToken = 'B7NMoX8ES4kTSzNZGl0HWfVn9fyrmH';//'fCYosSIAkbjD69Hbe1OACkfJQiqflj'//;'AzGuIiXTPe44xmEn889F41Zyfqvoby';//
   var clarifaiTagUrl = `https://api.clarifai.com/v1/tag?url=${encodeURIComponent(mp4Url)}&access_token=${clarifaiToken}`;
 
   var cachedJSON = localStorage.getItem(mp4Url);
   if (cachedJSON) {
     console.log('Using cached clarifai response.');
-    return handleTagData(JSON.parse(cachedJSON));
+    return handleTagData(JSON.parse(cachedJSON), e.item);
   }
   fetch(clarifaiTagUrl)
     .then(response => {
@@ -39,11 +39,16 @@ jwplayer('player').setup({
       localStorage.setItem(mp4Url, JSON.stringify(tagData))
       return tagData;
     })
-    .then(tagData => handleTagData(tagData))
+    .then(tagData => handleTagData(tagData, e.item))
     .catch(err => console.error(err))
+  }).on('time', function(e) {
+    var item = this.getPlaylistItem();
+    tagData = item.tagData;
+    if (!tagData) return;
+    var classes = tagData.classes[e.position|0];
+    var probs = tagData.probs[e.position|0];
+    document.querySelector('#clarifai').innerHTML = classes.join('<br>');
   });
-function handleTagData(tagData) {
-  console.log('tag data:', tagData);
-  // tagData.classes // array over seconds
-  // tagData.probs
+function handleTagData(tagData, item) {
+  item.tagData = tagData;
 }
