@@ -7,8 +7,6 @@ jwplayer('player').setup({
   // skin: 'six',
   playlist: '//content.jwplatform.com/feeds/2RD6nhsq.json',
 }).on('playlistItem', function(e) {
-  var videoTag = this.getContainer().querySelector('video');
-
   // find the first mp4 source that is not a '.m4a' AAC audio file.
   var mp4Url = e.item.allSources
     .reduce((res, item) => (item.type === 'mp4' && !/\.m4a$/.test(item.file)) ? item:res, {})
@@ -47,5 +45,5 @@ jwplayer('player').setup({
     if (!tagData) return;
     var classes = tagData.classes[e.position|0];
     // var probs = tagData.probs[e.position|0];
-    document.querySelector('#clarifai').innerHTML = classes.join('<br>');
+    this.getContainer().querySelector('.jw-overlays').innerHTML = classes.join('<br>');
   });
