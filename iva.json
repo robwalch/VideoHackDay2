@@ -1,0 +1,23 @@
+[
+  {
+    "sources": [
+      {
+        "description": "HLS stream with DTS audio track",
+        "file": "http://video.internetvideoarchive.net/player.aspx?cmd=6&fmt=15&customerid=552288&videokbrate=600&publishedid=100133&e=1462735855&h=7cd8d956f41d026987192b3b4b25e9aa",
+        "type": "hls"
+      },
+      {
+        "file": "http://video.internetvideoarchive.net/video.mpd?cmd=6&fmt=14&customerid=552288&videokbrate=600&publishedid=58483&e=1462731369&maxrate=2800000&minrate=220000&h=543fe20ee06b1f03315148b07a19b612",
+        "type": "dash"
+      },
+      {
+        "file": "http://video.internetvideoarchive.net/video.m3u8?cmd=6&fmt=11&customerid=552288&videokbrate=600&publishedid=58483&e=1462731364&maxrate=2800000&minrate=220000&h=2e0d841d543e0e41d1a47689fed5e5f7",
+        "type": "hls"
+      },
+      {
+        "file": "http://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=552288&videokbrate=750&publishedid=58483&e=1462731589&h=812e22e8ff9b3944affc627d7342d3a7",
+        "type": "mp4"
+      }
+    ]
+  }
+]
