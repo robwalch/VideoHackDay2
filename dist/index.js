@@ -1,5 +1,5 @@
 jwplayer('player').setup({
-  key: '0pNBbqmnocxnj2i9nEYGywGYoc0rMIDXH/T7TkUN6o9QP+XKD+oT5OAhjYk=',
+  key: '3bmorE7mD9rInwkc',
   // primary: 'flash',
   autostart: true,
   width: '100%',
